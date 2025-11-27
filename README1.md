@@ -18,4 +18,3 @@ Notes:
 	- Unity.Mathematics
 	- Unity.Collections
 	- Unity.Burst
-    - Total Json
