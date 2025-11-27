@@ -1,11 +1,10 @@
-﻿using System;
-using Unity.Mathematics;
+﻿using Unity.Mathematics;
 
 namespace HexWorldUtils.Models
 {
     public class PlotSaveData
     {
-        public Guid ID;
+        public string ID;
         public string TerrainID;
         public int2 GridSize;
         public int2 PivotPoint;
@@ -13,7 +12,7 @@ namespace HexWorldUtils.Models
 
         public PlotSaveData() { }
 
-        public PlotSaveData(Guid id, string terrainID, int2 gridSize, int2 pivotPoint, string[] items)
+        public PlotSaveData(string id, string terrainID, int2 gridSize, int2 pivotPoint, string[] items)
         {
             ID = id;
             TerrainID = terrainID;
