@@ -1,4 +1,5 @@
-﻿using HexWorldUtils.Models;
+﻿using System;
+using HexWorldUtils.Models;
 using UnityEngine;
 
 namespace HexWorldUtils.DataParsers
@@ -12,11 +13,7 @@ namespace HexWorldUtils.DataParsers
         {
             var payload = id.Split(':');
             if (payload.Length < 3)
-            {
-                Debug.Log($"load failed, expected format: 'charCharChar:int:int', got: {id}");
-                item = default;
-                return false;
-            }
+                throw new ArgumentException($"load failed, expected format: 'charCharChar:int:int', got: {id}");
 
             if (payload.Length > 3)
             {
@@ -28,29 +25,17 @@ namespace HexWorldUtils.DataParsers
             var scaleStr = payload[2];
 
             if (idDataStr.Length < 3)
-            {
-                Debug.Log($"load failed, expected format: 'charCharChar', got: {idDataStr}");
-                item = default;
-                return false;
-            }
+                throw new ArgumentException($"load failed, expected format: 'charCharChar', got: {idDataStr}");
 
             var category = idDataStr[0];
             var type = idDataStr[1];
             var subtype = idDataStr[2];
 
             if (!int.TryParse(positionStr, out var position))
-            {
-                Debug.Log($"load failed, expected format: 'int', got: {positionStr}");
-                item = default;
-                return false;
-            }
+                throw new ArgumentException($"load failed, expected format: 'int', got: {positionStr}");
 
             if (!int.TryParse(scaleStr, out var scale))
-            {
-                Debug.Log($"load failed, expected format: 'int', got: {scaleStr}");
-                item = default;
-                return false;
-            }
+                throw new ArgumentException($"load failed, expected format: 'int', got: {scaleStr}");
 
             item = new ItemData(category, type, subtype, position, scale);
             return true;
