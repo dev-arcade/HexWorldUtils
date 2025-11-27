@@ -3,7 +3,13 @@ This package contains shared logic and data models between Moon Plots and Cartog
 
 
 How to install:
-Open package manager > click on + > 'Install package from disk...' > select the 'package.json' file in this folder
+
+Method 1 - Git URL (Recommended):
+Open Package Manager > click on + > 'Add package from git URL...' > paste the repository URL:
+https://github.com/dev-arcade/HexWorldUtils.git
+
+Method 2 - Local disk:
+Open Package Manager > click on + > 'Install package from disk...' > select the 'package.json' file in this folder
 
 
 Notes:
