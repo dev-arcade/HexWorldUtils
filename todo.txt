@@ -1,4 +1,1 @@
-﻿- test the grid z
-- test json serializers 
-- do proper exceptions on item parsed data
-- deterministic random for all randoms
+﻿- test json serializers
