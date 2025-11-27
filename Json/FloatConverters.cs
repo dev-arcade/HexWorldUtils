@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using Newtonsoft.Json;
 using Unity.Mathematics;
 
@@ -19,23 +20,54 @@ namespace HexWorldUtils.Json
         public override float2 ReadJson(JsonReader reader, Type objectType, float2 existingValue,
             bool hasExistingValue, JsonSerializer serializer)
         {
-            float x = 0f, y = 0f;
-            while (reader.Read())
+            try
             {
-                if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
-                {
-                    string prop = reader.Value.ToString();
-                    reader.Read();
-                    if (prop == "x")
-                        x = Convert.ToSingle(reader.Value);
-                    else if (prop == "y")
-                        y = Convert.ToSingle(reader.Value);
-                }
-                else if (reader.TokenType == JsonToken.EndObject)
-                    break;
-            }
+                if (reader.TokenType != JsonToken.StartObject)
+                    throw new JsonSerializationException($"Expected StartObject token, got {reader.TokenType}");
 
-            return new float2(x, y);
+                float x = 0f, y = 0f;
+                bool hasX = false, hasY = false;
+
+                while (reader.Read())
+                {
+                    if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
+                    {
+                        string prop = reader.Value.ToString();
+                        if (!reader.Read())
+                            throw new JsonSerializationException($"Expected value after property '{prop}'");
+
+                        if (prop == "x")
+                        {
+                            x = Convert.ToSingle(reader.Value);
+                            hasX = true;
+                        }
+                        else if (prop == "y")
+                        {
+                            y = Convert.ToSingle(reader.Value);
+                            hasY = true;
+                        }
+                    }
+                    else if (reader.TokenType == JsonToken.EndObject)
+                        break;
+                }
+
+                if (!hasX || !hasY)
+                    throw new JsonSerializationException($"Missing required properties. Has x: {hasX}, Has y: {hasY}");
+
+                return new float2(x, y);
+            }
+            catch (FormatException ex)
+            {
+                throw new JsonSerializationException("Invalid number format in float2 JSON data", ex);
+            }
+            catch (InvalidCastException ex)
+            {
+                throw new JsonSerializationException("Invalid data type in float2 JSON data", ex);
+            }
+            catch (OverflowException ex)
+            {
+                throw new JsonSerializationException("Number out of range in float2 JSON data", ex);
+            }
         }
     }
 
@@ -56,25 +88,59 @@ namespace HexWorldUtils.Json
         public override float3 ReadJson(JsonReader reader, Type objectType, float3 existingValue,
             bool hasExistingValue, JsonSerializer serializer)
         {
-            float x = 0f, y = 0f, z = 0f;
-            while (reader.Read())
+            try
             {
-                if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
-                {
-                    string prop = reader.Value.ToString();
-                    reader.Read();
-                    if (prop == "x")
-                        x = Convert.ToSingle(reader.Value);
-                    else if (prop == "y")
-                        y = Convert.ToSingle(reader.Value);
-                    else if (prop == "z")
-                        z = Convert.ToSingle(reader.Value);
-                }
-                else if (reader.TokenType == JsonToken.EndObject)
-                    break;
-            }
+                if (reader.TokenType != JsonToken.StartObject)
+                    throw new JsonSerializationException($"Expected StartObject token, got {reader.TokenType}");
 
-            return new float3(x, y, z);
+                float x = 0f, y = 0f, z = 0f;
+                bool hasX = false, hasY = false, hasZ = false;
+
+                while (reader.Read())
+                {
+                    if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
+                    {
+                        string prop = reader.Value.ToString();
+                        if (!reader.Read())
+                            throw new JsonSerializationException($"Expected value after property '{prop}'");
+
+                        if (prop == "x")
+                        {
+                            x = Convert.ToSingle(reader.Value);
+                            hasX = true;
+                        }
+                        else if (prop == "y")
+                        {
+                            y = Convert.ToSingle(reader.Value);
+                            hasY = true;
+                        }
+                        else if (prop == "z")
+                        {
+                            z = Convert.ToSingle(reader.Value);
+                            hasZ = true;
+                        }
+                    }
+                    else if (reader.TokenType == JsonToken.EndObject)
+                        break;
+                }
+
+                if (!hasX || !hasY || !hasZ)
+                    throw new JsonSerializationException($"Missing required properties. Has x: {hasX}, Has y: {hasY}, Has z: {hasZ}");
+
+                return new float3(x, y, z);
+            }
+            catch (FormatException ex)
+            {
+                throw new JsonSerializationException("Invalid number format in float3 JSON data", ex);
+            }
+            catch (InvalidCastException ex)
+            {
+                throw new JsonSerializationException("Invalid data type in float3 JSON data", ex);
+            }
+            catch (OverflowException ex)
+            {
+                throw new JsonSerializationException("Number out of range in float3 JSON data", ex);
+            }
         }
     }
 }

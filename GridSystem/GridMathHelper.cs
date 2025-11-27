@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -5,12 +6,17 @@ namespace HexWorldUtils.GridSystem
 {
     public class GridMathHelper
     {
-        public void CalculateSpriteGridFromTexture(SpriteRenderer resourceRenderer, bool isTerrain,
-            out Vector3 origin, out float cellSize, out int gridSize, out float worldBounds)
+        public void CalculateSpriteGridFromTexture(SpriteRenderer resourceRenderer,
+            out Vector3 origin, out float cellSize, out int gridSize)
         {
+            if (!resourceRenderer)
+                throw new ArgumentNullException(nameof(resourceRenderer));
+            if (!resourceRenderer.sprite)
+                throw new ArgumentException("SpriteRenderer has no sprite");
+
             origin = GetGridOrigin(resourceRenderer);
             var outerBounds = GetSpriteOuterBounds(resourceRenderer);
-            worldBounds = outerBounds.x > outerBounds.y ? outerBounds.x : outerBounds.y;
+            var worldBounds = outerBounds.x > outerBounds.y ? outerBounds.x : outerBounds.y;
 
             var texWidth = resourceRenderer.sprite.texture.width;
             var texHeight = resourceRenderer.sprite.texture.height;
@@ -21,9 +27,14 @@ namespace HexWorldUtils.GridSystem
             cellSize = worldBounds / gridSize;
         }
 
-        public void CalculateSpriteGrid(SpriteRenderer resourceRenderer, float resolution, bool isTerrain,
+        public void CalculateSpriteGrid(SpriteRenderer resourceRenderer, float resolution,
             out Vector3 origin, out float cellSize, out int gridSize, out float worldBounds)
         {
+            if (!resourceRenderer)
+                throw new ArgumentNullException(nameof(resourceRenderer));
+            if (!resourceRenderer.sprite)
+                throw new ArgumentException("SpriteRenderer has no sprite");
+
             origin = GetGridOrigin(resourceRenderer);
             var outerBounds = GetSpriteOuterBounds(resourceRenderer);
 
@@ -35,12 +46,7 @@ namespace HexWorldUtils.GridSystem
                 gridSize++;
         }
 
-        public Vector3 GetGridOrigin(SpriteRenderer spriteRenderer)
-        {
-            var bounds = spriteRenderer.bounds;
-            return bounds.min;
-        }
-        
+        public Vector3 GetGridOrigin(SpriteRenderer spriteRenderer) => spriteRenderer.bounds.min;
 
         public Vector3 GetSpriteOuterBounds(SpriteRenderer spriteRenderer)
         {
@@ -60,9 +66,8 @@ namespace HexWorldUtils.GridSystem
             var gridCol = Mathf.RoundToInt(gridX);
             var gridRow = Mathf.RoundToInt(gridY);
 
-            var x = Mathf.Clamp(gridCol, 0, gridWidth);
-            var y = Mathf.Clamp(gridRow, 0, gridHeight);
-
+            var x = Mathf.Clamp(gridCol, 0, gridWidth - 1);
+            var y = Mathf.Clamp(gridRow, 0, gridHeight - 1);
             return new int2(x, y);
         }
     }

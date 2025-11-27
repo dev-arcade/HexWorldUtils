@@ -31,7 +31,7 @@ namespace HexWorldUtils.Job.Grid
             };
 
             var length = width * height;
-            var batchCount = SharedJobHelper.GetBatchCount(length);
+            var batchCount = SharedJobsHelper.GetBatchCount(length);
             return job.ScheduleParallel(length, batchCount, dependency);
         }
 
@@ -63,7 +63,7 @@ namespace HexWorldUtils.Job.Grid
 
         public void Execute(int index)
         {
-            SharedJobHelper.IndexToGrid(index, Width, out var x, out var y);
+            SharedJobsHelper.IndexToGrid(index, Width, out var x, out var y);
             Positions[index] = GridMath.GridToWorld2D(Origin, CellSize, x, y);
         }
     }

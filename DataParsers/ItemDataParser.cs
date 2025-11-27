@@ -1,36 +1,26 @@
-﻿using UnityEngine;
+﻿using HexWorldUtils.Models;
+using UnityEngine;
 
-namespace HexWorldUtils.Models
+namespace HexWorldUtils.DataParsers
 {
-    public struct ItemParsedData
+    public static class ItemDataParser
     {
-        public char Category;
-        public char Type;
-        public char Subtype;
-        public int Position;
-        public int Scale;
+        public static string GetItemID(ItemData item) =>
+            $"{item.Category}{item.Type}{item.Subtype}:{item.Position}:{item.Scale}";
 
-        public ItemParsedData(char category, char type, char subtype, int position, int scale)
-        {
-            Category = category;
-            Type = type;
-            Subtype = subtype;
-            Position = position;
-            Scale = scale;
-        }
-
-        public string GetID()
-        {
-            return $"{Category}{Type}{Subtype}:{Position}:{Scale}";
-        }
-
-        public bool LoadID(string id)
+        public static bool TryParseItem(string id, out ItemData item)
         {
             var payload = id.Split(':');
             if (payload.Length < 3)
             {
                 Debug.Log($"load failed, expected format: 'charCharChar:int:int', got: {id}");
+                item = default;
                 return false;
+            }
+
+            if (payload.Length > 3)
+            {
+                Debug.Log($"load waring for id format, expected format: 'charCharChar:int:int', got: {id}");
             }
 
             var idDataStr = payload[0];
@@ -40,28 +30,29 @@ namespace HexWorldUtils.Models
             if (idDataStr.Length < 3)
             {
                 Debug.Log($"load failed, expected format: 'charCharChar', got: {idDataStr}");
+                item = default;
                 return false;
             }
 
-            Category = idDataStr[0];
-            Type = idDataStr[1];
-            Subtype = idDataStr[2];
+            var category = idDataStr[0];
+            var type = idDataStr[1];
+            var subtype = idDataStr[2];
 
             if (!int.TryParse(positionStr, out var position))
             {
                 Debug.Log($"load failed, expected format: 'int', got: {positionStr}");
+                item = default;
                 return false;
             }
-
-            Position = position;
 
             if (!int.TryParse(scaleStr, out var scale))
             {
                 Debug.Log($"load failed, expected format: 'int', got: {scaleStr}");
+                item = default;
                 return false;
             }
 
-            Scale = scale;
+            item = new ItemData(category, type, subtype, position, scale);
             return true;
         }
     }

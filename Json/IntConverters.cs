@@ -19,23 +19,54 @@ namespace HexWorldUtils.Json
         public override int2 ReadJson(JsonReader reader, Type objectType, int2 existingValue,
             bool hasExistingValue, JsonSerializer serializer)
         {
-            int x = 0, y = 0;
-            while (reader.Read())
+            try
             {
-                if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
-                {
-                    string prop = reader.Value.ToString();
-                    reader.Read();
-                    if (prop == "x")
-                        x = Convert.ToInt32(reader.Value);
-                    else if (prop == "y")
-                        y = Convert.ToInt32(reader.Value);
-                }
-                else if (reader.TokenType == JsonToken.EndObject)
-                    break;
-            }
+                if (reader.TokenType != JsonToken.StartObject)
+                    throw new JsonSerializationException($"Expected StartObject token, got {reader.TokenType}");
 
-            return new int2(x, y);
+                int x = 0, y = 0;
+                bool hasX = false, hasY = false;
+
+                while (reader.Read())
+                {
+                    if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
+                    {
+                        string prop = reader.Value.ToString();
+                        if (!reader.Read())
+                            throw new JsonSerializationException($"Expected value after property '{prop}'");
+
+                        if (prop == "x")
+                        {
+                            x = Convert.ToInt32(reader.Value);
+                            hasX = true;
+                        }
+                        else if (prop == "y")
+                        {
+                            y = Convert.ToInt32(reader.Value);
+                            hasY = true;
+                        }
+                    }
+                    else if (reader.TokenType == JsonToken.EndObject)
+                        break;
+                }
+
+                if (!hasX || !hasY)
+                    throw new JsonSerializationException($"Missing required properties. Has x: {hasX}, Has y: {hasY}");
+
+                return new int2(x, y);
+            }
+            catch (FormatException ex)
+            {
+                throw new JsonSerializationException("Invalid number format in int2 JSON data", ex);
+            }
+            catch (InvalidCastException ex)
+            {
+                throw new JsonSerializationException("Invalid data type in int2 JSON data", ex);
+            }
+            catch (OverflowException ex)
+            {
+                throw new JsonSerializationException("Number out of range in int2 JSON data", ex);
+            }
         }
     }
 
@@ -56,25 +87,59 @@ namespace HexWorldUtils.Json
         public override int3 ReadJson(JsonReader reader, Type objectType, int3 existingValue,
             bool hasExistingValue, JsonSerializer serializer)
         {
-            int x = 0, y = 0, z = 0;
-            while (reader.Read())
+            try
             {
-                if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
-                {
-                    string prop = reader.Value.ToString();
-                    reader.Read();
-                    if (prop == "x")
-                        x = Convert.ToInt32(reader.Value);
-                    else if (prop == "y")
-                        y = Convert.ToInt32(reader.Value);
-                    else if (prop == "z")
-                        z = Convert.ToInt32(reader.Value);
-                }
-                else if (reader.TokenType == JsonToken.EndObject)
-                    break;
-            }
+                if (reader.TokenType != JsonToken.StartObject)
+                    throw new JsonSerializationException($"Expected StartObject token, got {reader.TokenType}");
 
-            return new int3(x, y, z);
+                int x = 0, y = 0, z = 0;
+                bool hasX = false, hasY = false, hasZ = false;
+
+                while (reader.Read())
+                {
+                    if (reader.Value != null && reader.TokenType == JsonToken.PropertyName)
+                    {
+                        string prop = reader.Value.ToString();
+                        if (!reader.Read())
+                            throw new JsonSerializationException($"Expected value after property '{prop}'");
+
+                        if (prop == "x")
+                        {
+                            x = Convert.ToInt32(reader.Value);
+                            hasX = true;
+                        }
+                        else if (prop == "y")
+                        {
+                            y = Convert.ToInt32(reader.Value);
+                            hasY = true;
+                        }
+                        else if (prop == "z")
+                        {
+                            z = Convert.ToInt32(reader.Value);
+                            hasZ = true;
+                        }
+                    }
+                    else if (reader.TokenType == JsonToken.EndObject)
+                        break;
+                }
+
+                if (!hasX || !hasY || !hasZ)
+                    throw new JsonSerializationException($"Missing required properties. Has x: {hasX}, Has y: {hasY}, Has z: {hasZ}");
+
+                return new int3(x, y, z);
+            }
+            catch (FormatException ex)
+            {
+                throw new JsonSerializationException("Invalid number format in int3 JSON data", ex);
+            }
+            catch (InvalidCastException ex)
+            {
+                throw new JsonSerializationException("Invalid data type in int3 JSON data", ex);
+            }
+            catch (OverflowException ex)
+            {
+                throw new JsonSerializationException("Number out of range in int3 JSON data", ex);
+            }
         }
     }
 }

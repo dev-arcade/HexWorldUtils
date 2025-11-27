@@ -20,7 +20,7 @@ Should be `gridWidth - 1` and `gridHeight - 1`. Currently allows invalid indices
 var x = Mathf.Clamp(gridCol, 0, gridWidth - 1);
 var y = Mathf.Clamp(gridRow, 0, gridHeight - 1);
 ```
-
+Change: used the suggested fix for the bug
 ---
 
 ### 2. PlotSaveData missing parameterless constructor
@@ -38,7 +38,7 @@ public PlotSaveData() { }
 [JsonConstructor]
 public PlotSaveData(Guid id, string terrainID, int2 gridSize, int2 pivotPoint, string[] items)
 ```
-
+Change: used the suggested fix for the bug
 ---
 
 ### 3. SquareGrid doesn't validate input
@@ -62,7 +62,7 @@ public SquareGrid(float3 originPosition, int width, int height, float cellSizeX,
     // ... rest of constructor
 }
 ```
-
+Change: used the suggested fix for the bug
 ---
 
 ## ⚠️ High Priority Issues
@@ -80,7 +80,8 @@ Always returns Z=0, but the origin has a Z component that's ignored. Creates inc
 **Options:**
 - Use `origin.z` to preserve Z coordinate
 - Document that this is intentionally 2D-only (rename to make it explicit)
-
+---
+Change: added a new method 'GridToWorld3D' for 3D positions
 ---
 
 ### 5. GridSettings doesn't handle negative dimensions
@@ -103,7 +104,7 @@ public GridSettings(Vector3 originPosition, int width, int height, float cellSiz
     this.cellSizeY = cellSizeY;
 }
 ```
-
+Change: used the suggested fix for the bug
 ---
 
 ### 6. ItemParsedData.LoadID doesn't validate exact format
@@ -120,7 +121,7 @@ if (payload.Length != 3)
     return false;
 }
 ```
-
+Change: added a new check to throw a warning of there are more than 3 parts, we don't need more than this since the format of the parts is also being checked
 ---
 
 ## 📝 Medium Priority Issues
@@ -135,6 +136,8 @@ Uses `UnityEngine.Vector3` for origin, but rest of codebase uses `Unity.Mathemat
 Change to `float3` for consistency with the rest of the codebase.
 
 ---
+Change: used the suggested fix for the bug
+---
 
 ### 8. Unused isTerrain parameter
 **File:** `GridSystem/GridMathHelper.cs:8, 24`
@@ -144,7 +147,8 @@ The `bool isTerrain` parameter is declared but never used in either `CalculateSp
 
 **Fix:**
 Either remove the parameter or implement the intended logic.
-
+---
+Change: used the suggested fix for the bug
 ---
 
 ### 9. Non-deterministic random seeds
@@ -163,7 +167,7 @@ public NativeArray<byte> Complete(NativeArray<int> includedPoints, int width, in
     // ... use seed
 }
 ```
-
+Note: we don't need deterministic random
 ---
 
 ### 10. Missing null checks in GridMathHelper
@@ -183,7 +187,7 @@ public void CalculateSpriteGridFromTexture(SpriteRenderer resourceRenderer, bool
     // ... rest of method
 }
 ```
-
+Change: used the suggested fix for the bug
 ---
 
 ### 11. Inconsistent error logging
@@ -196,7 +200,7 @@ Uses `Debug.Log` for errors. Should use `Debug.LogError` or `Debug.LogWarning` f
 ```csharp
 Debug.LogError($"load failed, expected format: 'charCharChar:int:int', got: {id}");
 ```
-
+Change: replaced logs with ArgumentException
 ---
 
 ### 12. JSON converters fail silently
@@ -222,7 +226,7 @@ public override int2 ReadJson(JsonReader reader, Type objectType, int2 existingV
     }
 }
 ```
-
+Change: added try catch blocks and exception handling for all JSON converters 
 ---
 
 ## 💡 Low Priority / Improvements
@@ -246,7 +250,7 @@ Public APIs lack XML documentation comments, making the package harder to use wi
 [MethodImpl(MethodImplOptions.AggressiveInlining)]
 public static int2 WorldToGrid2D(float3 worldPosition, float3 originPosition, float cellSizeX, float cellSizeY)
 ```
-
+Note: we don't really need it as the method names are pretty self-explanatory
 ---
 
 ### 14. Magic numbers in SharedJobHelper
@@ -261,7 +265,7 @@ public const float HEAT_OVERRIDE_ACCEPT_THRESHOLD = 2f;
 public const float HEAT_OVERRIDE_IGNORE_THRESHOLD = 4f;
 public const int DISABLED_CLUSTER_POINT = -1;
 ```
-
+Change: added Job/SharedJobsConstants file to handle mentioned constants
 ---
 
 ### 15. ItemParsedData mutability
@@ -288,7 +292,7 @@ public static bool TryParse(string id, out ItemParsedData result)
     return true;
 }
 ```
-
+Change: added DataParsers/ItemDataParser.cs file to handle item data parsing, removed parse data from item data model
 ---
 
 ### 16. Package metadata incomplete
@@ -310,9 +314,9 @@ Add to package.json:
   }
 }
 ```
-
 Create `CHANGELOG.md` and consider adding `Samples~/` directory with example scenes.
-
+---
+Note: no need
 ---
 
 ### 17. GridValidator utility
@@ -335,7 +339,7 @@ public static class GridValidator
     }
 }
 ```
-
+Change: added GridSystem/GridValidator.cs to handle grid validation
 ---
 
 ### 18. Consider Unity.Collections.FixedString for ItemParsedData
@@ -347,6 +351,8 @@ Using string makes it incompatible with Burst-compiled jobs.
 **Suggestion:**
 If this data structure ever needs to be used in jobs, consider using `FixedString` types for better Burst compatibility.
 
+---
+Note: this will increase the memory usage by a lot with very small performance gains
 ---
 
 ## Priority Recommendations

@@ -7,7 +7,7 @@ using Unity.Mathematics;
 
 namespace HexWorldUtils.Job
 {
-    public static class SharedJobHelper
+    public static class SharedJobsHelper
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe int AtomicIncrement(NativeArray<int> counter) =>
@@ -56,22 +56,22 @@ namespace HexWorldUtils.Job
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float GetOverrideHeatAccept() => 2;
+        public static float GetOverrideHeatAccept() => SharedJobsConstants.AcceptedOverrideHeat;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsHeatOverriddenAccept(float heat) => heat >= 2;
+        public static bool IsHeatOverriddenAccept(float heat) => heat >= SharedJobsConstants.AcceptedOverrideHeat;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float GetOverrideHeatIgnore() => 4;
+        public static float GetOverrideHeatIgnore() => SharedJobsConstants.IgnoredOverrideHeat;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsHeatOverriddenIgnore(float heat) => heat >= 4;
+        public static bool IsHeatOverriddenIgnore(float heat) => heat >= SharedJobsConstants.IgnoredOverrideHeat;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int GetDisableClusterPoint() => -1;
+        public static int GetDisableClusterPoint() => SharedJobsConstants.DisabledClusterPoint;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsDisabledClusterPoint(int value) => value == -1;
+        public static bool IsDisabledClusterPoint(int value) => value == SharedJobsConstants.DisabledClusterPoint;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float2 ScalePoint(float2 srcPoint, int srcWidth, int srcHeight, int dstWidth, int dstHeight)

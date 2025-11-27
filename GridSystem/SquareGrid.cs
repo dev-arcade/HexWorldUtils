@@ -1,4 +1,5 @@
-﻿using HexWorldUtils.Job.Grid;
+﻿using System;
+using HexWorldUtils.Job.Grid;
 using Unity.Mathematics;
 
 namespace HexWorldUtils.GridSystem
@@ -21,6 +22,10 @@ namespace HexWorldUtils.GridSystem
 
         public SquareGrid(float3 originPosition, int width, int height, float cellSizeX, float cellSizeY)
         {
+            if (!GridValidator.ValidateDimensions(width, height) ||
+                !GridValidator.ValidateCellSize(cellSizeX, cellSizeY))
+                return;
+
             _originPosition = originPosition;
             _width = width;
             _height = height;
@@ -42,9 +47,7 @@ namespace HexWorldUtils.GridSystem
             return GridToWorld(gridAddress);
         }
 
-        public bool IsInsideGrid(int2 gridAddress)
-        {
-            return gridAddress.x >= 0 && gridAddress.x < Width && gridAddress.y >= 0 && gridAddress.y < Height;
-        }
+        public bool IsInsideGrid(int2 gridAddress) => gridAddress.x >= 0 && gridAddress.x < Width &&
+                                                      gridAddress.y >= 0 && gridAddress.y < Height;
     }
 }

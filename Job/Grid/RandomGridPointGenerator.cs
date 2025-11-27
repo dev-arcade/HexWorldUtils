@@ -35,7 +35,7 @@ namespace HexWorldUtils.Job.Grid
                 HashPositions = hashPositions,
             };
 
-            var batchCount = SharedJobHelper.GetBatchCount(cellCount);
+            var batchCount = SharedJobsHelper.GetBatchCount(cellCount);
             var handle = job.ScheduleParallel(cellCount, batchCount, default);
             handle.Complete();
 
@@ -47,7 +47,7 @@ namespace HexWorldUtils.Job.Grid
                 Output = results,
             };
 
-            batchCount = SharedJobHelper.GetBatchCount(cellCount);
+            batchCount = SharedJobsHelper.GetBatchCount(cellCount);
             var fillerHandle = fillerJob.ScheduleParallel(cellCount, batchCount, default);
             fillerHandle.Complete();
 
@@ -78,7 +78,7 @@ namespace HexWorldUtils.Job.Grid
 
         public void Execute(int index)
         {
-            var rng = new Random(SharedJobHelper.GetRandomHash(RandomSeed + (uint)index));
+            var rng = new Random(SharedJobsHelper.GetRandomHash(RandomSeed + (uint)index));
             var fx = rng.NextFloat(0f, Width);
             var fy = rng.NextFloat(0f, Height);
 
@@ -113,13 +113,13 @@ namespace HexWorldUtils.Job.Grid
                 }
             }
 
-            if (SharedJobHelper.AtomicExchangeArray(HashOccupied, selfHash, 1) != 0)
+            if (SharedJobsHelper.AtomicExchangeArray(HashOccupied, selfHash, 1) != 0)
                 return;
 
             if (rng.NextFloat() > Density)
                 return;
 
-            HashPositions[selfHash] = SharedJobHelper.ScalePoint(pos, Width, Height, TargetWidth, TargetHeight);
+            HashPositions[selfHash] = SharedJobsHelper.ScalePoint(pos, Width, Height, TargetWidth, TargetHeight);
             OutputMask[index] = 1;
         }
     }

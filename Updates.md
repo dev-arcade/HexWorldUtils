@@ -23,6 +23,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Job/Grid/HexGridCalculator.cs`
 
 ---
+Note: only one of the two projects actually needs the hex library so i don't think we should bloat the package
+---
 
 ### 2. Grid Query & Pathfinding Utilities
 **Priority:** High
@@ -49,6 +51,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Job/Grid/LineOfSightJob.cs`
 
 ---
+Note: we don't need these
+---
 
 ### 3. Grid Transformation & Manipulation
 **Priority:** Medium
@@ -67,6 +71,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Job/Grid/GridRotationJob.cs`
 - `Job/Grid/GridResampleJob.cs`
 
+---
+Note: we don't need these
 ---
 
 ## 📊 Data Structures & Serialization
@@ -91,6 +97,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Serialization/GridDiffer.cs`
 
 ---
+Note: this would probably need a different format than json, also most of them aren't required anyway 
+---
 
 ### 5. Grid Data Layers
 **Priority:** Medium
@@ -109,6 +117,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Models/GridLayerData.cs`
 - `Job/Grid/GridLayerBlendJob.cs`
 
+---
+Note: we don't need these
 ---
 
 ## 🔧 Job System Enhancements
@@ -133,6 +143,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Job/Grid/WaveFunctionCollapseJob.cs`
 
 ---
+Note: we have a different generation flow here, height is irrelevant and multi layer terrain is already in place
+---
 
 ### 7. Advanced Point Distribution
 **Priority:** Low
@@ -150,6 +162,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Job/Grid/WeightedPointGeneratorJob.cs`
 - `Job/Grid/LloydRelaxationJob.cs`
 
+---
+Note: i already have plans to improve the random point generation for caves and debris but since it's low priority i'll leave it for later
 ---
 
 ## 🎨 Visualization & Debug Tools
@@ -174,6 +188,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Editor/GridInspector.cs`
 
 ---
+Note: we already have a heat map renderer, the rest are not needed
+---
 
 ### 9. Grid Editor Tools
 **Priority:** Low
@@ -192,6 +208,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Editor/GridPaintTool.cs`
 - `Editor/GridGenerationWizard.cs`
 
+---
+Note: we don't need these
 ---
 
 ## 🔌 Utility & Helper Systems
@@ -213,6 +231,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `GridSystem/GridHistory.cs`
 
 ---
+Note: we don't need these
+---
 
 ### 11. Grid Performance Optimizations
 **Priority:** Medium
@@ -231,6 +251,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `GridSystem/GridStreamer.cs`
 - `GridSystem/GridPool.cs`
 
+---
+Note: we do one time grid generations on terrain load and we need to store world positions since we're using them multiple times layter, so it's not really needed
 ---
 
 ### 12. Coordinate System Utilities
@@ -251,6 +273,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `GridSystem/AxialCoordinates.cs`
 - `Editor/UVCoordinatePurger.cs` (finds and removes UV coordinate references)
 
+---
+Note: we don't need these
 ---
 
 ## 🧪 Testing & Quality
@@ -275,6 +299,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Tests/Performance/GridPerformanceTests.cs`
 
 ---
+Note: most systems need to be tested visually, i don't think a lot of unit testing is doable or worth it here
+---
 
 ### 14. Example Scenes & Samples
 **Priority:** Medium
@@ -294,6 +320,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Samples~/ProceduralGeneration/`
 - `Samples~/HexGridDemo/`
 
+---
+Note: we don't need these as the package is more or a less a dev thing and the public api is pretty self-explanatory
 ---
 
 ## 🔀 Integration Features
@@ -315,6 +343,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Integration/TerrainAdapter.cs`
 
 ---
+Note: we don't need these as the package is more or a less a dev thing
+---
 
 ### 16. Async/Await Support
 **Priority:** Medium
@@ -332,6 +362,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Job/Grid/GridCalculatorAsync.cs`
 - `Job/Grid/RandomPointGeneratorAsync.cs`
 
+---
+Note: the nature of most of the jobs is closer to a one-after-another sort of system so i don't imagine it's needed here
 ---
 
 ## 📦 Package Management
@@ -351,6 +383,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Settings/HexWorldUtilsSettings.cs`
 - `Editor/HexWorldUtilsSettingsProvider.cs`
 
+---
+Note: we don't need these as the package is more or a less a dev thing 
 ---
 
 ## 🚀 Advanced Features
@@ -374,6 +408,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Job/WorldGen/`
 
 ---
+Note: seeds will be added by the rest are irrelevant to either of the projects
+---
 
 ### 19. Grid Physics Integration
 **Priority:** Low
@@ -391,6 +427,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Physics/GridRaycast.cs`
 
 ---
+Note: we don't need these
+---
 
 ### 20. Multiplayer/Networking Support
 **Priority:** Low
@@ -406,6 +444,8 @@ Systematic feature additions and missing functionality for HexWorldUtils.
 - `Networking/GridNetworkSerializer.cs`
 - `Networking/GridStateDelta.cs`
 
+---
+Note: nah
 ---
 
 ## Priority Implementation Order

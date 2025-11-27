@@ -44,7 +44,7 @@ namespace HexWorldUtils.Job.Grid
                 RandomSeed = seed,
             };
 
-            var batchCount = SharedJobHelper.GetBatchCount(shuffledPoints.Length);
+            var batchCount = SharedJobsHelper.GetBatchCount(shuffledPoints.Length);
             var handle = processJob.ScheduleParallel(shuffledPoints.Length, batchCount, default);
             handle.Complete();
 
@@ -64,7 +64,7 @@ namespace HexWorldUtils.Job.Grid
 
         public void Execute()
         {
-            var rng = new Random(SharedJobHelper.GetRandomHash(RandomSeed));
+            var rng = new Random(SharedJobsHelper.GetRandomHash(RandomSeed));
             int n = Indices.Length;
             for (int i = n - 1; i > 0; i--)
             {
@@ -96,8 +96,8 @@ namespace HexWorldUtils.Job.Grid
             if (point < 0)
                 return;
 
-            SharedJobHelper.IndexToGrid(point, Width, out var x, out var y);
-            var rng = new Random(SharedJobHelper.GetRandomHash(RandomSeed + (uint)point));
+            SharedJobsHelper.IndexToGrid(point, Width, out var x, out var y);
+            var rng = new Random(SharedJobsHelper.GetRandomHash(RandomSeed + (uint)point));
 
             const float jitterAmount = 0.65f;
             var jx = (rng.NextFloat() - 0.5f) * 2f * jitterAmount * MinDistance;
@@ -137,7 +137,7 @@ namespace HexWorldUtils.Job.Grid
                 }
             }
 
-            if (SharedJobHelper.AtomicExchangeArray(HashOccupied, selfHash, point + 1) != 0)
+            if (SharedJobsHelper.AtomicExchangeArray(HashOccupied, selfHash, point + 1) != 0)
                 return;
 
             if (rng.NextFloat() > Density)
