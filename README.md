@@ -29,7 +29,8 @@ A high-performance Unity package for grid-based world systems, spatial calculati
 - Optimized batch sizing for worker thread utilization
 
 ### 💾 Data Management
-- **JSON Serialization** with custom converters for Unity types
+- **JSON Serialization** with Total JSON for high performance
+- Custom converters for Unity and Unity.Mathematics types
 - Save/Load system for plot and terrain data
 - Support for `Unity.Mathematics` types (`float2`, `float3`, `int2`, etc.)
 - Item encoding/decoding with validation
@@ -155,7 +156,7 @@ points.Dispose();
 ```csharp
 using HexWorldUtils.Json;
 using HexWorldUtils.Models;
-using Newtonsoft.Json;
+using Leguar.TotalJSON;
 using Unity.Mathematics;
 
 // Create plot data
@@ -167,17 +168,13 @@ var plotData = new PlotSaveData(
     items: new string[] { "ABC:123:1", "DEF:456:2" }
 );
 
-// Serialize with custom converters
-string json = JsonConvert.SerializeObject(
-    plotData,
-    JsonSettingsRef.DefaultSettings
-);
+// Serialize with custom converters (Total JSON)
+JSON json = JsonSerializer.Serialize(plotData);
+string jsonString = json.CreateString();
 
 // Deserialize
-var loaded = JsonConvert.DeserializeObject<PlotSaveData>(
-    json,
-    JsonSettingsRef.DefaultSettings
-);
+JSON jsonObj = JSON.ParseString(jsonString);
+var loaded = JsonSerializer.Deserialize<PlotSaveData>(jsonObj);
 ```
 
 ---
@@ -240,7 +237,7 @@ var loaded = JsonConvert.DeserializeObject<PlotSaveData>(
   - Unity.Mathematics
   - Unity.Collections
   - Unity.Burst
-  - Newtonsoft.Json (Json.NET for Unity)
+  - Total JSON (Leguar.TotalJSON)
   - UnityEditor (for visualization tools)
 
 ### Assembly Definition
