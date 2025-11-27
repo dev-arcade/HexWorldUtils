@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿/*
+using Newtonsoft.Json;
 
 namespace HexWorldUtils.Json
 {
@@ -21,3 +22,4 @@ namespace HexWorldUtils.Json
         };
     }
 }
+*/
