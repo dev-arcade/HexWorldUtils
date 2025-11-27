@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Unity.Mathematics;
 
-namespace MoonPlotsCartographerShared.Json
+namespace HexWorldUtils.Json
 {
     public class Float2Converter : JsonConverter<float2>
     {

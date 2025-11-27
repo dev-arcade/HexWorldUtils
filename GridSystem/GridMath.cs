@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 
-namespace MoonPlotsCartographerShared.GridSystem
+namespace HexWorldUtils.GridSystem
 {
     public static class GridMath
     {

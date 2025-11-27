@@ -1,7 +1,7 @@
-﻿using MoonPlotsCartographerShared.Job.Grid;
+﻿using HexWorldUtils.Job.Grid;
 using Unity.Mathematics;
 
-namespace MoonPlotsCartographerShared.GridSystem
+namespace HexWorldUtils.GridSystem
 {
     public class SquareGrid
     {

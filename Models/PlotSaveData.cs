@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Unity.Mathematics;
 
-namespace MoonPlotsCartographerShared.Models
+namespace HexWorldUtils.Models
 {
     public class PlotSaveData
     {

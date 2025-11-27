@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MoonPlotsCartographerShared.GridSystem
+namespace HexWorldUtils.GridSystem
 {
     [Serializable]
     public class GridSettings

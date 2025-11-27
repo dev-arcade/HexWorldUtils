@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MoonPlotsCartographerShared.Json
+namespace HexWorldUtils.Json
 {
     public static class JsonSettingsRef
     {

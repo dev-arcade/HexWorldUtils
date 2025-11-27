@@ -2,7 +2,7 @@
 using Unity.Collections;
 using Unity.Jobs;
 
-namespace MoonPlotsCartographerShared.Job.General
+namespace HexWorldUtils.Job.General
 {
     [BurstCompile]
     public struct ArrayFillerJob<T> : IJobFor where T : struct

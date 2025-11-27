@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MoonPlotsCartographerShared.Models
+namespace HexWorldUtils.Models
 {
     public struct ItemParsedData
     {

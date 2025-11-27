@@ -2,7 +2,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
-namespace MoonPlotsCartographerShared.GridSystem
+namespace HexWorldUtils.GridSystem
 {
     public class GridRenderer : MonoBehaviour
     {

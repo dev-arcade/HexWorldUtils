@@ -5,7 +5,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Mathematics;
 
-namespace MoonPlotsCartographerShared.Job
+namespace HexWorldUtils.Job
 {
     public static class SharedJobHelper
     {

@@ -4,7 +4,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Random = Unity.Mathematics.Random;
 
-namespace MoonPlotsCartographerShared.Job.Grid
+namespace HexWorldUtils.Job.Grid
 {
     public class RandomPointGeneratorRunner
     {

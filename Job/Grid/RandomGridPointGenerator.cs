@@ -1,10 +1,10 @@
-﻿using MoonPlotsCartographerShared.Job.General;
+﻿using HexWorldUtils.Job.General;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 
-namespace MoonPlotsCartographerShared.Job.Grid
+namespace HexWorldUtils.Job.Grid
 {
     public class RandomGridPointGeneratorRunner
     {
