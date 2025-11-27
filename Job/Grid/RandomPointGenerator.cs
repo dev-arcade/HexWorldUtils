@@ -9,7 +9,7 @@ namespace HexWorldUtils.Job.Grid
     public class RandomPointGeneratorRunner
     {
         public NativeArray<byte> Complete(NativeArray<int> includedPoints, int width, int height, int minDistance,
-            float density)
+            float density, uint seed)
         {
             var hashWidth = (width + minDistance - 1) / minDistance;
             var totalLength = width * height;
@@ -19,8 +19,7 @@ namespace HexWorldUtils.Job.Grid
 
             var shuffledPoints = new NativeArray<int>(includedPoints.Length, Allocator.TempJob);
             shuffledPoints.CopyFrom(includedPoints);
-
-            var seed = (uint)System.DateTime.Now.Ticks;
+            
             var shuffleJob = new ShuffleIndicesJob
             {
                 Indices = shuffledPoints,

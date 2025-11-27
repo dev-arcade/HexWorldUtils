@@ -9,7 +9,7 @@ namespace HexWorldUtils.Job.Grid
     public class RandomGridPointGeneratorRunner
     {
         public NativeArray<float2> Complete(int width, int height, int minDistance, float density, int targetWidth,
-            int targetHeight)
+            int targetHeight, uint seed)
         {
             var hashWidth = (int)math.ceil((float)width / minDistance);
             var hashHeight = (int)math.ceil((float)height / minDistance);
@@ -29,7 +29,7 @@ namespace HexWorldUtils.Job.Grid
                 HashWidth = hashWidth,
                 HashHeight = hashHeight,
                 Density = density,
-                RandomSeed = (uint)System.Environment.TickCount,
+                RandomSeed = seed,
                 OutputMask = outputMask,
                 HashOccupied = hashOccupied,
                 HashPositions = hashPositions,
