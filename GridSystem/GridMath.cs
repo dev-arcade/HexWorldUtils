@@ -31,8 +31,8 @@ namespace HexWorldUtils.GridSystem
         public static float3 GridToWorld3D(float3 origin, float2 cellSize, int x, int y)
         {
             var worldX = origin.x + (x * cellSize.x);
-            var worldY = origin.z + (y * cellSize.y);
-            return new float3(worldX, origin.y, worldY);
+            var worldZ = origin.z + (y * cellSize.y);
+            return new float3(worldX, origin.y, worldZ);
         }
     }
 }
