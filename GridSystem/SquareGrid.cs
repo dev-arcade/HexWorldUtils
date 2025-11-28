@@ -35,16 +35,28 @@ namespace HexWorldUtils.GridSystem
             _gridData = runner.Complete(width, height, new float2(cellSizeX, cellSizeY), _originPosition);
         }
 
-        public int2 WorldToGrid(float3 worldPosition) =>
+        public int2 WorldToGrid2D(float3 worldPosition) =>
             GridMath.WorldToGrid2D(worldPosition, _originPosition, _cellSizeX, _cellSizeY);
 
-        public float3 GridToWorld(int2 gridAddress) =>
+        public float3 GridToWorld2D(int2 gridAddress) =>
             GridMath.GridToWorld2D(_originPosition, new float2(_cellSizeX, _cellSizeY), gridAddress.x, gridAddress.y);
+        
+        public int2 WorldToGrid3D(float3 worldPosition) =>
+            GridMath.WorldToGrid3D(worldPosition, _originPosition, _cellSizeX, _cellSizeY);
 
-        public float3 WorldToGridWorld(float3 worldPosition, out int2 gridAddress)
+        public float3 GridToWorld3D(int2 gridAddress) =>
+            GridMath.GridToWorld3D(_originPosition, new float2(_cellSizeX, _cellSizeY), gridAddress.x, gridAddress.y);
+
+        public float3 WorldToGridWorld2D(float3 worldPosition, out int2 gridAddress)
         {
-            gridAddress = WorldToGrid(worldPosition);
-            return GridToWorld(gridAddress);
+            gridAddress = WorldToGrid2D(worldPosition);
+            return GridToWorld2D(gridAddress);
+        }
+        
+        public float3 WorldToGridWorld3D(float3 worldPosition, out int2 gridAddress)
+        {
+            gridAddress = WorldToGrid3D(worldPosition);
+            return GridToWorld3D(gridAddress);
         }
 
         public bool IsInsideGrid(int2 gridAddress) => gridAddress.x >= 0 && gridAddress.x < Width &&

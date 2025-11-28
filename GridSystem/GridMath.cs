@@ -13,6 +13,13 @@ namespace HexWorldUtils.GridSystem
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int2 WorldToGrid3D(float3 worldPosition, float3 originPosition, float cellSizeX, float cellSizeY)
+        {
+            var offset = worldPosition - originPosition;
+            return new int2((int)math.floor(offset.x / cellSizeX), (int)math.floor(offset.z / cellSizeY));
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3 GridToWorld2D(float3 origin, float2 cellSize, int x, int y)
         {
             var worldX = origin.x + (x * cellSize.x);
