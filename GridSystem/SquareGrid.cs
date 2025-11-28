@@ -43,9 +43,15 @@ namespace HexWorldUtils.GridSystem
         
         public int2 WorldToGrid3D(float3 worldPosition) =>
             GridMath.WorldToGrid3D(worldPosition, _originPosition, _cellSizeX, _cellSizeY);
+        
+        public int2 WorldToGrid3D(float3 worldPosition, float3 origin) =>
+            GridMath.WorldToGrid3D(worldPosition, origin, _cellSizeX, _cellSizeY);
 
         public float3 GridToWorld3D(int2 gridAddress) =>
             GridMath.GridToWorld3D(_originPosition, new float2(_cellSizeX, _cellSizeY), gridAddress.x, gridAddress.y);
+        
+        public float3 GridToWorld3D(int2 gridAddress, float3 origin) =>
+            GridMath.GridToWorld3D(origin, new float2(_cellSizeX, _cellSizeY), gridAddress.x, gridAddress.y);
 
         public float3 WorldToGridWorld2D(float3 worldPosition, out int2 gridAddress)
         {
