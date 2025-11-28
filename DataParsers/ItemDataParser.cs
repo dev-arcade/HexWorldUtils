@@ -7,7 +7,7 @@ namespace HexWorldUtils.DataParsers
     public static class ItemDataParser
     {
         public static string GetItemID(ItemData item) =>
-            $"{item.Category}{item.Type}{item.Subtype}:{item.Position}:{item.Scale}";
+            $"{item.Category}{item.Type}{item.Subtype}{item.ResourceIndex}:{item.Position}:{item.Scale}";
 
         public static bool TryParseItem(string id, out ItemData item)
         {
@@ -30,6 +30,7 @@ namespace HexWorldUtils.DataParsers
             var category = idDataStr[0];
             var type = idDataStr[1];
             var subtype = idDataStr[2];
+            var indexStr = idDataStr[3..];
 
             if (!int.TryParse(positionStr, out var position))
                 throw new ArgumentException($"load failed, expected format: 'int', got: {positionStr}");
@@ -37,7 +38,10 @@ namespace HexWorldUtils.DataParsers
             if (!int.TryParse(scaleStr, out var scale))
                 throw new ArgumentException($"load failed, expected format: 'int', got: {scaleStr}");
 
-            item = new ItemData(category, type, subtype, position, scale);
+            if (!int.TryParse(indexStr, out var index))
+                throw new ArgumentException($"load failed, expected format: 'int', got: {indexStr}");
+
+            item = new ItemData(category, type, subtype, position, index, scale);
             return true;
         }
     }

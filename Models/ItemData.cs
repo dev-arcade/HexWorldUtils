@@ -4,17 +4,19 @@ namespace HexWorldUtils.Models
 {
     public struct ItemData
     {
-        public char Category;
-        public char Type;
-        public char Subtype;
-        public int Position;
-        public int Scale;
+        public readonly char Category;
+        public readonly char Type;
+        public readonly char Subtype;
+        public readonly int ResourceIndex;
+        public readonly int Position;
+        public readonly int Scale;
 
-        public ItemData(char category, char type, char subtype, int position, int scale)
+        public ItemData(char category, char type, char subtype, int resourceIndex, int position, int scale)
         {
             Category = category;
             Type = type;
             Subtype = subtype;
+            ResourceIndex = resourceIndex;
             Position = position;
             Scale = scale;
         }
