@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HexWorldUtils.Resource
+namespace HexWorldUtils.Resource.Models
 {
     [Serializable]
     public class ItemIdData

@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
-namespace HexWorldUtils.Resource
+namespace HexWorldUtils.Resource.Models
 {
     [CreateAssetMenu(menuName = "Shared Data/Asset ID Data")]
     public class AssetIDData : ScriptableObject

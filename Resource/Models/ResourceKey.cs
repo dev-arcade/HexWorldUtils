@@ -1,4 +1,4 @@
-﻿namespace HexWorldUtils.Resource
+﻿namespace HexWorldUtils.Resource.Models
 {
     public enum ResourceKeyType
     {

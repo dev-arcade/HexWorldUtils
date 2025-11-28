@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HexWorldUtils.Resource
+namespace HexWorldUtils.Resource.Models
 {
     public class ResourceInfo
     {
