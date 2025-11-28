@@ -21,6 +21,9 @@ namespace HexWorldUtils.Models
             Scale = scale;
         }
 
+        public string GetStorageID() =>
+            ItemDataParser.GetItemIDForStorage(this);
+
         public string GetID() =>
             ItemDataParser.GetItemID(this);
     }
