@@ -46,8 +46,6 @@ namespace HexWorldUtils.DataParsers
 
             item = new ItemData(category, type, subtype, resourceIndex, position, scale);
             return true;
-            
-            // test
         }
     }
 }
