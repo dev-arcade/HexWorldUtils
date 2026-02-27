@@ -1,6 +1,6 @@
 {
     "name": "com.tothemoon.hex-world-utils",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "displayName": "Hex World Utils",
     "description": "This package contains shared logic and data models between Moon Plots and Cartographer project. For more info, look at the 'README.txt' file in the package folder.",
     "unity": "6000.0",
