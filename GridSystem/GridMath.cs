@@ -57,11 +57,11 @@ namespace HexWorldUtils.GridSystem
                     break;
                 case 1:
                     cos = 0.5f;
-                    sin = MathF.Sqrt(3f) * 0.5f;
+                    sin = math.sqrt(3f) * 0.5f;
                     break;
                 case 2:
                     cos = -0.5f;
-                    sin = MathF.Sqrt(3f) * 0.5f;
+                    sin = math.sqrt(3f) * 0.5f;
                     break;
                 case 3:
                     cos = -1f;
@@ -69,11 +69,11 @@ namespace HexWorldUtils.GridSystem
                     break;
                 case 4:
                     cos = -0.5f;
-                    sin = -MathF.Sqrt(3f) * 0.5f;
+                    sin = -math.sqrt(3f) * 0.5f;
                     break;
                 case 5:
                     cos = 0.5f;
-                    sin = -MathF.Sqrt(3f) * 0.5f;
+                    sin = -math.sqrt(3f) * 0.5f;
                     break;
                 default:
                     throw new InvalidOperationException();
