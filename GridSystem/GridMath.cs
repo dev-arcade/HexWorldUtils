@@ -36,17 +36,17 @@ namespace HexWorldUtils.GridSystem
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int2 RotateRight(int2 p, int rotationStep)
+        public static int2 RotateRight(int2 p, int rotation)
         {
             const int cx = 500;
             const int cy = 500;
 
-            int k = (-rotationStep) % 6;
+            var k = (-rotation) % 6;
             if (k < 0)
                 k += 6;
 
-            int dx = p.x - cx;
-            int dy = p.y - cy;
+            var dx = p.x - cx;
+            var dy = p.y - cy;
 
             float cos, sin;
             switch (k)
@@ -79,11 +79,11 @@ namespace HexWorldUtils.GridSystem
                     throw new InvalidOperationException();
             }
 
-            float rx = dx * cos - dy * sin;
-            float ry = dx * sin + dy * cos;
+            var rx = dx * cos - dy * sin;
+            var ry = dx * sin + dy * cos;
 
-            int x2 = (int)MathF.Round(rx) + cx;
-            int y2 = (int)MathF.Round(ry) + cy;
+            var x2 = (int)math.round(rx) + cx;
+            var y2 = (int)math.round(ry) + cy;
 
             return new int2(x2, y2);
         }
