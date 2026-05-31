@@ -36,43 +36,44 @@ namespace HexWorldUtils.GridSystem
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int2 RotateRight(int2 p, int rotationStep)
+        public static Int2 RotateRight(Int2 p, int rotationStep)
         {
             const int cx = 500;
             const int cy = 500;
+
             int k = (-rotationStep) % 6;
             if (k < 0)
                 k += 6;
 
-            int dx = p.x - cx;
-            int dy = p.y - cy;
+            int dx = p.X - cx;
+            int dy = p.Y - cy;
 
             float cos, sin;
             switch (k)
             {
                 case 0:
-                    cos = 1.0;
-                    sin = 0.0;
+                    cos = 1f;
+                    sin = 0f;
                     break;
                 case 1:
-                    cos = 0.5;
-                    sin = Math.Sqrt(3) / 2f;
+                    cos = 0.5f;
+                    sin = MathF.Sqrt(3f) * 0.5f;
                     break;
                 case 2:
-                    cos = -0.5;
-                    sin = Math.Sqrt(3) / 2f;
+                    cos = -0.5f;
+                    sin = MathF.Sqrt(3f) * 0.5f;
                     break;
                 case 3:
-                    cos = -1.0;
-                    sin = 0.0;
+                    cos = -1f;
+                    sin = 0f;
                     break;
                 case 4:
-                    cos = -0.5;
-                    sin = -Math.Sqrt(3) / 2f;
+                    cos = -0.5f;
+                    sin = -MathF.Sqrt(3f) * 0.5f;
                     break;
                 case 5:
-                    cos = 0.5;
-                    sin = -Math.Sqrt(3) / 2f;
+                    cos = 0.5f;
+                    sin = -MathF.Sqrt(3f) * 0.5f;
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -81,10 +82,10 @@ namespace HexWorldUtils.GridSystem
             float rx = dx * cos - dy * sin;
             float ry = dx * sin + dy * cos;
 
-            int x2 = (int)Math.Round(rx) + cx;
-            int y2 = (int)Math.Round(ry) + cy;
+            int x2 = (int)MathF.Round(rx) + cx;
+            int y2 = (int)MathF.Round(ry) + cy;
 
-            return new int2(x2, y2);
+            return new Int2(x2, y2);
         }
     }
 }
